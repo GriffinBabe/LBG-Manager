@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group  android:id="@+id/fragment_group"
+            android:checkableBehavior="single">
+        <item
+            android:id = "@+id/my_tasks_button"
+            android:icon="@drawable/baseline_check_circle_outline_black_18"
+            android:title="My tasks"
+            />
+        <item
+            android:id = "@+id/events_button"
+            android:icon="@drawable/baseline_panorama_wide_angle_black_18"
+            android:title="Events"
+            />
+    </group>
+
+    <group android:id="@+id/options_group"
+            android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/settings_button"
+            android:icon="@drawable/baseline_settings_black_18"
+            android:title="Settings"
+        />
+        <item
+            android:id="@+id/logout_button"
+            android:icon="@drawable/baseline_power_settings_new_black_18"
+            android:title="Logout"
+            />
+
+    </group>
+
+</menu>
