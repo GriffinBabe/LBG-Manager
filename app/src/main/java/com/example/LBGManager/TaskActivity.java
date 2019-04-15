@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.example.LBGManager.Model.LBG;
@@ -28,7 +29,7 @@ public class TaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
 
-        Toolbar toolbar = findViewById(R.id.settings_toolbar);
+        Toolbar toolbar = findViewById(R.id.task_toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -45,8 +46,32 @@ public class TaskActivity extends AppCompatActivity {
         task_description = (TextView) findViewById(R.id.task_description);
 
         done_button = (Button) findViewById(R.id.task_done_button);
-        done_button = (Button) findViewById(R.id.task_dodge_button;
-        done_button = (Button) findViewById(R.id.task_done_button);
+        dodge_button = (Button) findViewById(R.id.task_dodge_button);
+        discussion_button = (Button) findViewById(R.id.task_discussion_button);
+
+        done_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: send to server that task has been done
+                System.out.println("Done button on click");
+            }
+        });
+
+        dodge_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: create the dodge interface
+                System.out.println("Dodge button on click");
+            }
+        });
+
+        discussion_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: deep-linking to correct slack channel
+                System.out.println("Discussion button on click");
+            }
+        });
 
         changeInformations();
     }
@@ -54,6 +79,7 @@ public class TaskActivity extends AppCompatActivity {
     private void changeInformations() {
         task_title.setText(task.getName());
         task_deadline.setText("Monday 12 oct."); //TODO:Set deadline with java date
+        task_deadline.setText(task.getDeadline().toString());
         task_description.setText(task.getDescription());
     }
 

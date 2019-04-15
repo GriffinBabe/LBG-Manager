@@ -57,24 +57,4 @@ public class Event {
         }
     }
 
-    public List<Task> getUserTasks(String member_id) {
-        List<Task> temp_tasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (task.containsResponsible(member_id)) {
-                temp_tasks.add(task);
-            }
-        }
-        return temp_tasks;
-    }
-
-    public Task getTaskById(String taks_id) {
-        for (Task task : tasks) {
-            if (task.getId().equals(taks_id)) {
-                return task;
-            }
-        }
-        return null;
-    }
-
-
 }

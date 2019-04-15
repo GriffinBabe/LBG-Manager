@@ -22,8 +22,13 @@ public class LBG {
         notifyObservers();
     }
 
-    public static List<Task> getUserTasks(String memeber_id) {
-        List<Task> tasks = new ArrayList<>();
+    public static List<Task> getUserTasks(String member_id) {
+        List<Task> temp_tasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getResponsibles().contains(member_id)) {
+                temp_tasks.add(task);
+            }
+        }
         tasks.add(new Task("AAA1","1","Courses","Aller acheter des courses au Colruyt",new Date(2020,10,31)));
         tasks.add(new Task("AAA2","1","Netoyage","Netoyer le local",new Date(2020,10,30)));
         tasks.add(new Task("AAA3","1","Netoyage","Netoyer le local",new Date(2020,10,30)));
@@ -54,14 +59,12 @@ public class LBG {
     }
 
     public static Task getTaskById(String id) {
-        Task task = null;
-        for (Event event: events) {
-            task = event.getTaskById(id);
-            if (task!=null) {
-                break;
+        for (Task task : tasks) {
+            if (task.getId().equals(id)) {
+                return task;
             }
         }
-        return task;
+        return null;
     }
 
     /**
