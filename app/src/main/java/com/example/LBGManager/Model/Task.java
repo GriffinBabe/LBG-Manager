@@ -7,13 +7,15 @@ import java.util.List;
 public class Task {
 
     private String id;
+    private String event_id;
     private String name, description;
     private Date deadline;
     private List<Member> responsibles;
     private boolean completed = false;
 
-    public Task(String id, String name, String description, Date deadline) {
+    public Task(String id, String event_id, String name, String description, Date deadline) {
         responsibles = new ArrayList<>();
+        this.event_id = event_id;
         this.id = id;
         this.name = name;
         this.description = description;
@@ -22,6 +24,10 @@ public class Task {
 
     public String getId() {
         return id;
+    }
+
+    public String getEvent_id() {
+        return event_id;
     }
 
     public void addResponsible(Member member) {

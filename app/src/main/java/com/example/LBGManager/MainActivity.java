@@ -12,13 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.view.MotionEvent;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
     private DrawerLayout drawerLayout;
-    private ViewPager mViewPager;
+    private NoSwipeViewPager mViewPager;
     private SectionsStatePagerAdapter mSectionStatePageAdapter;
 
     @Override
@@ -70,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
         //mSectionStatePageAdapter = new SectionsStatePagerAdapter(getSupportFragmentManager());
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        // Custom viewpager to disable swipe
+        mViewPager = (NoSwipeViewPager) findViewById(R.id.container);
+
         // setup the pager
         setupViewPager(mViewPager);
         setFragment(0);

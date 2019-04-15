@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".TaskActivity">
+
+    <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="?attr/actionBarTheme"
+            android:minHeight="?attr/actionBarSize"
+            android:id="@+id/task_toolbar"/>
+
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/task_buttons_layout"
+                android:layout_below="@+id/task_toolbar"
+                >
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="TASK TITLE"
+                      android:textSize="30sp"
+                      android:paddingTop="20dp"
+                      android:gravity="center"
+                      android:layout_centerHorizontal="true"
+                      android:id="@+id/task_title"
+            />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/task_title"
+                android:textColor="@color/red"
+                android:layout_margin="15dp"
+                android:textSize="25sp"
+                android:text="Deadline: "
+                android:id="@+id/task_deadline"
+            />
+
+            <ImageView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:src="@android:drawable/divider_horizontal_dark"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
+                    android:layout_below="@id/task_deadline"
+                    android:id="@+id/task_separator"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_below="@+id/task_separator"
+                      android:paddingLeft="20dp"
+                      android:paddingRight="20dp"
+                      android:paddingTop="35dp"
+                      android:text="Here stands the event description"
+                      android:id="@+id/task_description"
+            />
+
+        </RelativeLayout>
+
+
+
+    </ScrollView>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="100sp"
+                  android:layout_alignParentBottom="true"
+                  android:orientation="horizontal"
+                  android:weightSum="3"
+                  android:id="@+id/task_buttons_layout">
+
+        <Button android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="DONE"
+                android:background="@color/light_green"
+                android:id="@+id/task_done_button"
+        />
+
+        <Button android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="CHANGE\nRESPONSIBLE"
+                android:lines="2"
+                android:background="@color/light_yellow"
+                android:id="@+id/task_dodge_button"
+        />
+
+        <Button android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="DISCUSSION"
+                android:background="@color/blue"
+                android:id="@+id/task_discussion_button"
+        />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

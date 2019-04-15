@@ -20,9 +20,17 @@
                   android:label="MyApp Settings"
                   android:parentActivityName="com.example.LBGManager.MainActivity"
         >
-            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="com.example.LBGManager.MainActivity"
+            <meta-data  android:name="android.support.PARENT_ACTIVITY"
+                        android:value="com.example.LBGManager.MainActivity"
+            />
+
+        </activity>
+        <activity android:name="com.example.LBGManager.TaskActivity"
+                  android:label="Task Activity"
+                  android:parentActivityName="com.example.LBGManager.MainActivity"
+        >
+            <meta-data  android:name="android.support.PARENT_ACTIVITY"
+                        android:value="com.example.LBGManager.MainActivity"
             />
 
         </activity>
