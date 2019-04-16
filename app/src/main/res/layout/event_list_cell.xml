@@ -12,6 +12,8 @@
     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="170dp"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/image_border"
                         android:id="@+id/my_event_image"
                 />
 

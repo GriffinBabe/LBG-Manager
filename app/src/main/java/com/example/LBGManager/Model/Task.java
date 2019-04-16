@@ -66,12 +66,4 @@ public class Task {
         return responsibles_ids;
     }
 
-    public boolean containsResponsible(String member_id) {
-        for (Member member : responsibles) {
-            if (member.getMemeber_id().equals(member_id)) {
-                return true;
-            }
-        }
-        return  false;
-    }
 }

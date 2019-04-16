@@ -38,7 +38,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @Override
     public int getItemCount() {
-        return LBG.getUserTasks(AppMember.getMember_id()).size();
+        return tasks.size();
     }
 
     @Override

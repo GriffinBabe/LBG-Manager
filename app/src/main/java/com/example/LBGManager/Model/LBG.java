@@ -110,5 +110,12 @@ public class LBG {
         return members_ids;
     }
 
-
+    public static List<Event> getEvents() {
+        List<Event> fake_temp_list = new ArrayList<>();
+        fake_temp_list.add(new Event("AA1","EBEC BENELUX", "Second phase", "dcouchar", new Date(21,10,2018), new Date(24, 10, 2018)));
+        fake_temp_list.add(new Event("AA1","EBEC BENELUX", "Second phase", "dcouchar", new Date(21,10,2018), new Date(24, 10, 2018)));
+        fake_temp_list.add(new Event("AA1","EBEC BENELUX", "Second phase", "dcouchar", new Date(21,10,2018), new Date(24, 10, 2018)));
+        fake_temp_list.add(new Event("AA1","EBEC BENELUX", "Second phase", "dcouchar", new Date(21,10,2018), new Date(24, 10, 2018)));
+        return fake_temp_list;
+    }
 }
