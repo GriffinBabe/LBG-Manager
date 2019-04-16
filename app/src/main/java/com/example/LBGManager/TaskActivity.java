@@ -20,6 +20,7 @@ public class TaskActivity extends AppCompatActivity {
     private TextView task_title;
     private TextView task_deadline;
     private TextView task_description;
+    private TextView task_responsibles;
     private Button done_button;
     private Button dodge_button;
     private Button discussion_button;
@@ -44,6 +45,7 @@ public class TaskActivity extends AppCompatActivity {
         task_title = (TextView) findViewById(R.id.task_title);
         task_deadline = (TextView) findViewById(R.id.task_deadline);
         task_description = (TextView) findViewById(R.id.task_description);
+        task_responsibles = (TextView) findViewById(R.id.task_responsibles);
 
         done_button = (Button) findViewById(R.id.task_done_button);
         dodge_button = (Button) findViewById(R.id.task_dodge_button);
@@ -62,6 +64,8 @@ public class TaskActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO: create the dodge interface
                 System.out.println("Dodge button on click");
+                DodgeDialog dodgeDialog = new DodgeDialog();
+                dodgeDialog.show(getSupportFragmentManager().beginTransaction(), "dialog");
             }
         });
 
@@ -81,6 +85,14 @@ public class TaskActivity extends AppCompatActivity {
         task_deadline.setText("Monday 12 oct."); //TODO:Set deadline with java date
         task_deadline.setText(task.getDeadline().toString());
         task_description.setText(task.getDescription());
+
+        String total_responisbles_names = "";
+        for (String member_id : task.getResponsibles()) {
+            String name = LBG.getMemberById(member_id).getName();
+            total_responisbles_names = total_responisbles_names.concat(name);
+        }
+        String final_names = "Responsibles: "+total_responisbles_names;
+        task_responsibles.setText(final_names);
     }
 
     @Override
@@ -91,5 +103,9 @@ public class TaskActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public Task getTask() {
+        return task;
     }
 }

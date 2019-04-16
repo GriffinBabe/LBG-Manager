@@ -57,4 +57,7 @@ public class Event {
         }
     }
 
+    public List<String> getOrganisers_ids() {
+        return organisers_ids;
+    }
 }

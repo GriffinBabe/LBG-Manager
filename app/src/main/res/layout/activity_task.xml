@@ -72,6 +72,15 @@
                       android:id="@+id/task_description"
             />
 
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_below="@+id/task_description"
+                      android:text="Responsibles: "
+                      android:paddingLeft="20dp"
+                      android:paddingTop="40dp"
+                      android:id="@+id/task_responsibles"
+                      />
+
         </RelativeLayout>
 
 

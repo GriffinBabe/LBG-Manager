@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout   xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_margin="15dp"
+                android:orientation="vertical"
+                android:focusable="true"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                >
+
+    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:id="@+id/my_event_image"
+                />
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textSize="20dp"
+              android:textColor="@color/red"
+              android:gravity="center"
+              android:text="18th March - 20th March"
+              android:lines="1"
+              android:id="@+id/my_event_date"
+                          />
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:lines="1"
+              android:textSize="25dp"
+              android:text="This is the name of the event"
+              android:gravity="center"
+              android:id="@+id/my_event_title"
+              />
+
+</LinearLayout>

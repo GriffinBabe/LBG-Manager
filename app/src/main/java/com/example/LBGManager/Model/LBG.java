@@ -3,7 +3,6 @@ package com.example.LBGManager.Model;
 
 import com.example.LBGManager.Channel;
 
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,6 +66,15 @@ public class LBG {
         return null;
     }
 
+    public static Member getMemberById(String id) {
+        for (Member member : members) {
+            if (member.getMemeber_id().equals(id)) {
+                return member;
+            }
+        }
+        return null;
+    }
+
     /**
      * Notifies every Channel objects that the state has changed
      */
@@ -80,6 +88,27 @@ public class LBG {
         observers.add(channel);
     }
 
+    /**
+     * This function will return every memeber id from the LBG, but the first elements are the organisers of the event
+     * @param event_id The event identification number
+     * @return A list containing all LBG memebers ids but the first elements are the organisers
+     */
+    public static List<String> getAllMembersFromEventId(String event_id) {
+        Event event = getEventById(event_id);
+        List<String> members_ids = new ArrayList<>();
+        // First adds every member id from the event organisers
+        members_ids.addAll(event.getOrganisers_ids());
+
+        // Then adds all the member id from the LBG
+        for (Member member : members) {
+            String id = member.getMemeber_id();
+            if (!members_ids.contains(id)) {
+                members_ids.add(id);
+            }
+        }
+
+        return members_ids;
+    }
 
 
 }

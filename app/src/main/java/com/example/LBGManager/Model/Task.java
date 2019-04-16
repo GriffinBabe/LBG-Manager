@@ -10,11 +10,11 @@ public class Task {
     private String event_id;
     private String name, description;
     private Date deadline;
-    private List<Member> responsibles;
+    private List<String> responsibles_ids;
     private boolean completed = false;
 
     public Task(String id, String event_id, String name, String description, Date deadline) {
-        responsibles = new ArrayList<>();
+        responsibles_ids = new ArrayList<>();
         this.event_id = event_id;
         this.id = id;
         this.name = name;
@@ -30,12 +30,12 @@ public class Task {
         return event_id;
     }
 
-    public void addResponsible(Member member) {
-        this.responsibles.add(member);
+    public void addResponsible(String id) {
+        this.responsibles_ids.add(id);
     }
 
-    public void removeResponsible(Member member){
-        this.responsibles.remove(member);
+    public void removeResponsible(String member){
+        this.responsibles_ids.remove(member);
     }
 
     public String getName() {
@@ -62,8 +62,8 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public List<Member> getResponsibles() {
-        return responsibles;
+    public List<String> getResponsibles() {
+        return responsibles_ids;
     }
 
     public boolean containsResponsible(String member_id) {
