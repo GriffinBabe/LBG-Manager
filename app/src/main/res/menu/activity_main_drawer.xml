@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/news"
+            android:icon="@drawable/ic_email_black_24dp"
+            android:title="News and Announcements" />
+        <item
+            android:id="@+id/agenda"
+            android:icon="@drawable/ic_calendar"
+            android:title="Agenda" />
+        <item
+            android:id="@+id/manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Events Management" />
+        <item
+            android:id="@+id/aqueduc"
+            android:icon="@drawable/aqueduct_39542"
+            android:title="Aqueduc" />
+        <item
+            android:id="@+id/photos"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Photos Bestiales" />
+    </group>
+
+    <item android:title="Personal Space">
+        <menu>
+            <item
+                android:id="@+id/profile"
+                android:icon="@drawable/ic_account_circle_black_24dp"
+                android:title="My Profile" />
+            <item
+                android:id="@+id/tasks"
+                android:icon="@drawable/ic_done_all_black_24dp"
+                android:title="My Tasks" />
+        </menu>
+    </item>
+
+</menu>
