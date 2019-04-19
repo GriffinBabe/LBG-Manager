@@ -7,11 +7,10 @@ public class Member {
 
     private String memeber_id;
     private String name;
-    private List<Responsability> responsabilities;
+    private Responsability responsability = null;
     private boolean administrator = false;
 
     public Member(String username, String member_id) {
-        this.responsabilities = new ArrayList<>();
         this.name = username;
         this.memeber_id = member_id;
     }
@@ -24,17 +23,14 @@ public class Member {
         this.administrator = administrator;
     }
 
+    public void setResponsability(Responsability responsability) {
+        this.responsability = responsability;
+    }
+
     public String getMemeber_id() {
         return memeber_id;
     }
-
-    public void addReponsabilities(Responsability responsability) {
-        responsabilities.add(responsability);
-    }
-
-    public List<Responsability> getResponsabilities() {
-        return this.responsabilities;
-    }
+    
 
     public String getName() {
         return name;

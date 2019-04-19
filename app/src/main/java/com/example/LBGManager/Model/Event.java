@@ -64,4 +64,16 @@ public class Event {
     public String getName() {
         return name;
     }
+
+    public void setAdmins_ids(List<String> admins_ids) {
+        this.admins_ids = admins_ids;
+    }
+
+    public void setOrganisers_ids(List<String> organisers_ids) {
+        this.organisers_ids = organisers_ids;
+    }
+
+    public void setTasks_ids(List<String> tasks_ids) {
+        this.tasks_ids = tasks_ids;
+    }
 }

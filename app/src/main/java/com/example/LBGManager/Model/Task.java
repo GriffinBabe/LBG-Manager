@@ -66,4 +66,7 @@ public class Task {
         return responsibles_ids;
     }
 
+    public void setResponsibles_ids(List<String> responsibles_ids) {
+        this.responsibles_ids = responsibles_ids;
+    }
 }
