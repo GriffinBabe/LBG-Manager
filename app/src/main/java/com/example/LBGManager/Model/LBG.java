@@ -2,6 +2,7 @@ package com.example.LBGManager.Model;
 
 
 import com.example.LBGManager.Channel;
+import com.example.LBGManager.Network.Session;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,8 +17,11 @@ public class LBG {
 
     private static List<Channel> observers = new ArrayList<>();
 
-    public static void updateModel() {
-        // TODO: All network stuff
+    public static void updateModel(String username, String password) {
+        Model model = Session.getInstance(username, password).gatherModel();
+        events = model.getEvents();
+        tasks = model.getTasks();
+        members = model.getMembers();
         notifyObservers();
     }
 

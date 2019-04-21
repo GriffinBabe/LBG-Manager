@@ -1,13 +1,10 @@
 package com.example.LBGManager.Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Member {
 
     private String memeber_id;
     private String name;
-    private Responsability responsability = null;
+    private Responsibility responsibility = null;
     private boolean administrator = false;
 
     public Member(String username, String member_id) {
@@ -23,14 +20,14 @@ public class Member {
         this.administrator = administrator;
     }
 
-    public void setResponsability(Responsability responsability) {
-        this.responsability = responsability;
+    public void setResponsibility(Responsibility responsibility) {
+        this.responsibility = responsibility;
     }
 
     public String getMemeber_id() {
         return memeber_id;
     }
-    
+
 
     public String getName() {
         return name;

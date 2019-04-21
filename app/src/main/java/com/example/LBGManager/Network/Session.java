@@ -1,6 +1,5 @@
 package com.example.LBGManager.Network;
 
-import android.util.Log;
 import com.example.LBGManager.Model.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,21 +28,6 @@ public class Session {
     private static SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssXXX");
 
     private Session(String username, String password) {
-
-        try {
-            URL url = new URL(link);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
-            connection.setDoInput(true);
-            connection.connect();
-        }
-        catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
         if (token==null) {
             createToken(username, password);
         }
@@ -58,6 +42,7 @@ public class Session {
 
     public void createToken(String username, String password) {
         try {
+            connect();
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("request_type", "get_authentication_key");
             jsonRequest.put("id", username);
@@ -68,6 +53,7 @@ public class Session {
                 throwJsonFormat(jsonRequest);
             }
             token = jsonResponse.getString("token");
+            disconnect();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -75,11 +61,13 @@ public class Session {
 
     public Model gatherModel() {
         try {
+            connect();
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("request_type", "get_model");
             jsonRequest.put("auth_key", token);
             writeToConnection(jsonRequest);
             JSONObject jsonResponse = readToConnection();
+            disconnect();
             String request_status = jsonResponse.getString("request_status");
             if (request_status.equals("no_auth") || request_status.equals("error")) {
                 throwJsonFormat(jsonRequest);
@@ -99,7 +87,7 @@ public class Session {
             Model model = new Model();
             JSONArray task_json_array = response.getJSONArray("tasks");
             JSONArray event_json_array = response.getJSONArray("events");
-            JSONArray memeber_json_array = response.getJSONArray("members");
+            JSONArray member_json_array = response.getJSONArray("members");
             List<Task> tasks = new ArrayList<>();
             List<Event> events = new ArrayList<>();
             List<Member> members = new ArrayList<>();
@@ -112,7 +100,7 @@ public class Session {
                 String description = task.getString("description");
                 Date deadline = date_format.parse(task.getString("deadline"));
                 List<String> responsibles_ids = new ArrayList<>();
-                JSONArray reponsibles_json = task.getJSONArray("responsibles");
+                JSONArray reponsibles_json = task.getJSONArray("responsibles_ids");
                 for (int j = 0; j < reponsibles_json.length(); j++) {
                     responsibles_ids.add(reponsibles_json.getString(j));
                 }
@@ -152,15 +140,15 @@ public class Session {
                 events.add(temp_event);
             }
 
-            for (int i = 0; i < memeber_json_array.length(); i++) {
-                JSONObject member = memeber_json_array.getJSONObject(i);
+            for (int i = 0; i < member_json_array.length(); i++) {
+                JSONObject member = member_json_array.getJSONObject(i);
                 String id = member.getString("id");
                 String name = member.getString("name");
                 String responsibility = member.getString("responsibility");
-                Boolean administator = member.getBoolean("administrator");
+                Boolean administrator = member.getBoolean("administrator");
                 Member temp_member = new Member(name, id);
-                temp_member.setResponsability(Enum.valueOf(Responsability.class, responsibility));
-                temp_member.setAdministrator(administator);
+                temp_member.setResponsibility(Responsibility.valueOf(responsibility));
+                temp_member.setAdministrator(administrator);
                 members.add(temp_member);
             }
 
@@ -173,6 +161,8 @@ public class Session {
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -208,6 +198,25 @@ public class Session {
         return null;
     }
 
+    private static void connect() {
+        try {
+            URL url = new URL(link);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.connect();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void disconnect() {
+        connection.disconnect();
+    }
+
     private static void throwJsonFormat(JSONObject request) throws JSONException {
         System.out.println("--------------[With This request]---------------");
         System.out.println(request.toString());
@@ -221,5 +230,9 @@ public class Session {
 
     public String getToken() {
         return token;
+    }
+
+    public void setToken(String token) {
+        Session.token = token;
     }
 }
