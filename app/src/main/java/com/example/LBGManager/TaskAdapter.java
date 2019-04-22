@@ -16,7 +16,7 @@ import java.util.List;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> implements Channel {
 
     // This is the list containing all the user tasks
-    private List<Task> tasks = LBG.getUserTasks(AppMember.getInstance().getMember_id());
+    private List<Task> tasks = LBG.getUserTasks(AppMember.getInstance().getMember().getMember_Id());
 
     @NonNull
     @Override
@@ -43,7 +43,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @Override
     public void stateChanged() {
-        tasks = LBG.getUserTasks(AppMember.getInstance().getMember_id());
+        tasks = LBG.getUserTasks(AppMember.getInstance().getMember().getMember_Id());
         notifyDataSetChanged();
     }
 

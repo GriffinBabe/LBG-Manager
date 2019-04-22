@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class Member implements Serializable {
 
-    private String memeber_id;
+    private String member_id;
     private String name;
     private Responsibility responsibility = null;
     private boolean administrator = false;
 
-    public Member(String username, String member_id) {
-        this.name = username;
-        this.memeber_id = member_id;
+    public Member(String name, String member_id) {
+        this.name = name;
+        this.member_id = member_id;
     }
 
     public boolean isAdministrator() {
@@ -26,8 +26,8 @@ public class Member implements Serializable {
         this.responsibility = responsibility;
     }
 
-    public String getMemeber_id() {
-        return memeber_id;
+    public String getMember_Id() {
+        return member_id;
     }
 
 

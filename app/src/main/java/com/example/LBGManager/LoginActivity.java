@@ -50,18 +50,24 @@ public class LoginActivity extends AppCompatActivity {
                                     Member member = session.checkToken();
                                     AppMember app_member = AppMember.getInstance();
                                     app_member.setMember(member);
+                                    app_member.setToken(session.getToken());
 
-                                    Model model = Session.getInstance(app_member.getToken()).gatherModel();
+                                    final Model model = Session.getInstance(app_member.getToken()).gatherModel();
 
                                     // Saves the app_member and the model
                                     Serializer.serialize(app_member, LoginActivity.this);
                                     Serializer.serialize(model, LoginActivity.this);
 
-                                    LBG.updateModel(model);
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            LBG.updateModel(model);
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                            startActivity(intent);
+                                        }
+                                    });
 
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                                    startActivity(intent);
                                 } catch (InvalidPasswordException e) {
                                     login_text.setText("Wrong credentials");
                                     login_text.setTextColor(getResources().getColor(R.color.red));

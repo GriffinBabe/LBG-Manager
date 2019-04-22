@@ -39,7 +39,7 @@ public class SessionTest {
             assertNotEquals(true, true);
         }
         assertNotEquals(null, member);
-        System.out.println(member.getMemeber_id()+" "+member.getName());
+        System.out.println(member.getMember_Id()+" "+member.getName());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class SessionTest {
         try {
             Model model = session.gatherModel();
             for (Member member : model.getMembers()) {
-                System.out.println(member.getMemeber_id()+" "+member.getName());
+                System.out.println(member.getMember_Id()+" "+member.getName());
             }
             for (Task task : model.getTasks()) {
                 System.out.println(task.getId()+" "+task.getResponsibles());

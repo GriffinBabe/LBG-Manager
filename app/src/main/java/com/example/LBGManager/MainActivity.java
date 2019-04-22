@@ -16,9 +16,9 @@ import com.example.LBGManager.Model.AppMember;
 import com.example.LBGManager.Model.LBG;
 import com.example.LBGManager.Model.Serializer;
 import com.example.LBGManager.Model.Model;
+import com.example.LBGManager.Network.Exceptions.InvalidResponseFormat;
 import com.example.LBGManager.Network.Exceptions.WrongTokenException;
 import com.example.LBGManager.Network.Session;
-import com.example.LBGManager.Model.Model;
 
 import java.io.IOException;
 
@@ -60,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
                                 Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
                                 startActivity(myIntent);
                                 break;
+                            case (R.id.logout_button):
+                                menuItem.setChecked(false);
+                                try {
+                                    Serializer.deleteAppMember(MainActivity.this);
+                                    Serializer.deleteModel(MainActivity.this);
+                                    Intent logoutIntent = new Intent(MainActivity.this, LoginActivity.class);
+                                    startActivity(logoutIntent);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                         }
 
                         return true;
@@ -90,30 +100,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeModel() {
-        // 1. Opens the old model
-        Model model;
-        try {
-            model = Serializer.deserializeModel(this);
-        } catch (Exception e) {
-            // Gives an empty model if the old_model cannot be recovered
-            model = new Model();
-        }
-        LBG.updateModel(model);
+        // This is going to recover the old serialized password
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // 1. Opens the old model
+                Model model;
+                try {
+                    model = Serializer.deserializeModel(MainActivity.this);
+                } catch (Exception e) {
+                    // Gives an empty model if the old_model cannot be recovered
+                    model = new Model();
+                }
+                LBG.updateModel(model);
 
-        AppMember appMember;
-        try {
-            // Tries to get the model online, opens the login activity if no token exists or it's a wrong token
-            appMember = Serializer.deserializeAppMember(this);
-            model = Session.getInstance(appMember.getToken()).gatherModel();
-            LBG.updateModel(model);
-        } catch (IOException | ClassNotFoundException | WrongTokenException e) {
-            // If the old cannot be recovered launches a login activity
-            Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(myIntent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                AppMember appMember;
+                try {
+                    // Tries to get the model online, opens the login activity if no token exists or it's a wrong token
+                    appMember = Serializer.deserializeAppMember(MainActivity.this);
+                    model = Session.getInstance(appMember.getToken()).gatherModel();
+                    LBG.updateModel(model);
+                } catch (IOException | ClassNotFoundException | WrongTokenException | InvalidResponseFormat e) {
+                    // If the old cannot be recovered launches a login activity
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(myIntent);
+                        }
 
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void setupViewPager(ViewPager pager) {

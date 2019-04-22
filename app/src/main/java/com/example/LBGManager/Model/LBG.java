@@ -2,7 +2,6 @@ package com.example.LBGManager.Model;
 
 
 import com.example.LBGManager.Channel;
-import com.example.LBGManager.Network.Session;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,7 +70,7 @@ public class LBG {
 
     public static Member getMemberById(String id) {
         for (Member member : members) {
-            if (member.getMemeber_id().equals(id)) {
+            if (member.getMember_Id().equals(id)) {
                 return member;
             }
         }
@@ -104,7 +103,7 @@ public class LBG {
 
         // Then adds all the member id from the LBG
         for (Member member : members) {
-            String id = member.getMemeber_id();
+            String id = member.getMember_Id();
             if (!members_ids.contains(id)) {
                 members_ids.add(id);
             }

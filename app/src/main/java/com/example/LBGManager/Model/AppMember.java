@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class AppMember implements Serializable {
 
     private Member member;
-    private String member_id = "";
     private String token;
     private static AppMember APPMEMBER = null;
 
@@ -38,13 +37,5 @@ public class AppMember implements Serializable {
 
     public void setMember(Member member) {
         this.member = member;
-    }
-
-    public String getMember_id() {
-        return member_id;
-    }
-
-    public void setMember_id(String member_id) {
-        this.member_id = member_id;
     }
 }
