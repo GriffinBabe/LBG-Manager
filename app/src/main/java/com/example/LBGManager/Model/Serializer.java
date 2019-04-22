@@ -7,15 +7,15 @@ import java.io.*;
 public class Serializer {
 
     private static String MODEL_FILE = "model.ser";
-    private static String TOKEN_FILE = "token.ser";
+    private static String APPMEMBER_FILE = "token.ser";
 
-    public static void serialize(Object o) throws  IOException {
+    public static void serialize(Object o, Context context) throws  IOException {
         FileOutputStream fos;
         ObjectOutputStream oos;
         if (o instanceof Model) {
-            fos = new FileOutputStream(MODEL_FILE);
+            fos = context.openFileOutput(MODEL_FILE, Context.MODE_PRIVATE);
         } else if (o instanceof AppMember) {
-            fos = new FileOutputStream(TOKEN_FILE);
+            fos = new FileOutputStream(APPMEMBER_FILE);
         } else {
             throw new IOException("Cannot serialize: " + o.getClass().getName());
         }
@@ -23,9 +23,9 @@ public class Serializer {
         oos.writeObject(o);
         fos.close();
     }
-    public static Model deserializeModel() throws  IOException, ClassNotFoundException{
+    public static Model deserializeModel(Context context) throws  IOException, ClassNotFoundException{
         Model model;
-        FileInputStream fis = new FileInputStream(MODEL_FILE);
+        FileInputStream fis = context.openFileInput(MODEL_FILE);
         ObjectInputStream ois = new ObjectInputStream(fis);
         model = (Model) ois.readObject();
         fis.close();
@@ -33,9 +33,9 @@ public class Serializer {
         return model;
     }
 
-    public static AppMember deserializeAppMember() throws  IOException, ClassNotFoundException {
+    public static AppMember deserializeAppMember(Context context) throws  IOException, ClassNotFoundException {
         AppMember member;
-        FileInputStream fis = new FileInputStream(MODEL_FILE);
+        FileInputStream fis = context.openFileInput(APPMEMBER_FILE);
         ObjectInputStream ois = new ObjectInputStream(fis);
         member = (AppMember) ois.readObject();
         fis.close();

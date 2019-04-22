@@ -25,8 +25,8 @@ public class Session {
     private static String token;
     private static Session INSTANCE;
     private static HttpURLConnection connection;
-    private static String link = "http://127.0.0.1:8000/api/";
-    private static SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssXXX");
+    private static String link = "http://10.0.2.2:8000/api/";
+    private static SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZZZZZ");
 
     private Session(String username, String password) throws Exception {
         if (token == null) {

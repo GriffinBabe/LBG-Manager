@@ -1,9 +1,11 @@
 package com.example.LBGManager;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,29 +42,34 @@ public class LoginActivity extends AppCompatActivity {
                     login_text.setText("Please enter your username and password.");
                     login_text.setTextColor(getResources().getColor(R.color.red));
                 } else {
-                    try {
-                        Session session = Session.getInstance(login.getText().toString(), password.getText().toString());
-                        Member member = session.checkToken();
-                        AppMember app_member = AppMember.getInstance();
-                        app_member.setMember(member);
+                        new Thread( new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Session session = Session.getInstance(login.getText().toString(), password.getText().toString());
+                                    Member member = session.checkToken();
+                                    AppMember app_member = AppMember.getInstance();
+                                    app_member.setMember(member);
 
-                        Model model = Session.getInstance(app_member.getToken()).gatherModel();
+                                    Model model = Session.getInstance(app_member.getToken()).gatherModel();
 
-                        // Saves the app_member and the model
-                        Serializer.serialize(app_member);
-                        Serializer.serialize(model);
+                                    // Saves the app_member and the model
+                                    Serializer.serialize(app_member, LoginActivity.this);
+                                    Serializer.serialize(model, LoginActivity.this);
 
-                        LBG.updateModel(model);
+                                    LBG.updateModel(model);
 
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivity(intent);
-                    } catch (InvalidPasswordException e) {
-                        login_text.setText("Wrong credentials");
-                        login_text.setTextColor(getResources().getColor(R.color.red));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                                    startActivity(intent);
+                                } catch (InvalidPasswordException e) {
+                                    login_text.setText("Wrong credentials");
+                                    login_text.setTextColor(getResources().getColor(R.color.red));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
                 }
             }
         });
@@ -75,4 +82,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        // Do Nothing
+    }
 }

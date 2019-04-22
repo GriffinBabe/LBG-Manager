@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         // 1. Opens the old model
         Model model;
         try {
-            model = Serializer.deserializeModel();
+            model = Serializer.deserializeModel(this);
         } catch (Exception e) {
             // Gives an empty model if the old_model cannot be recovered
             model = new Model();
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         AppMember appMember;
         try {
             // Tries to get the model online, opens the login activity if no token exists or it's a wrong token
-            appMember = Serializer.deserializeAppMember();
+            appMember = Serializer.deserializeAppMember(this);
             model = Session.getInstance(appMember.getToken()).gatherModel();
             LBG.updateModel(model);
         } catch (IOException | ClassNotFoundException | WrongTokenException e) {

@@ -21,7 +21,6 @@
                android:layout_below="@id/login_toolbar"
                android:src="@mipmap/best_logo"
                android:id="@+id/login_image"
-               android:layout_weight="1.5"
     />
 
     <TextView android:layout_width="wrap_content"
@@ -37,7 +36,6 @@
 
     <EditText android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_weight="1dp"
               android:textSize="25dp"
               android:layout_below="@id/login_login_text"
               android:layout_marginLeft="50dp"
