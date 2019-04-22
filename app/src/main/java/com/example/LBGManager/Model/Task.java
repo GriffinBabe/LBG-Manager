@@ -1,10 +1,11 @@
 package com.example.LBGManager.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Task {
+public class Task implements Serializable {
 
     private String id;
     private String event_id;

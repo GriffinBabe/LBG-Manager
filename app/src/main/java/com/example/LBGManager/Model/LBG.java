@@ -17,8 +17,7 @@ public class LBG {
 
     private static List<Channel> observers = new ArrayList<>();
 
-    public static void updateModel(String username, String password) {
-        Model model = Session.getInstance(username, password).gatherModel();
+    public static void updateModel(Model model) {
         events = model.getEvents();
         tasks = model.getTasks();
         members = model.getMembers();

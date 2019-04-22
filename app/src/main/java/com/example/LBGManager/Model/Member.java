@@ -1,6 +1,8 @@
 package com.example.LBGManager.Model;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable {
 
     private String memeber_id;
     private String name;

@@ -1,9 +1,10 @@
 package com.example.LBGManager.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Model {
+public class Model implements Serializable {
     private List<Task> tasks = new ArrayList<>();
     private List<Event> events = new ArrayList<>();
     private List<Member> members = new ArrayList<>();

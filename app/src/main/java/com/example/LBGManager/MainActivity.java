@@ -12,6 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import com.example.LBGManager.Model.AppMember;
+import com.example.LBGManager.Model.LBG;
+import com.example.LBGManager.Model.Serializer;
+import com.example.LBGManager.Model.Model;
+import com.example.LBGManager.Network.Exceptions.WrongTokenException;
+import com.example.LBGManager.Network.Session;
+import com.example.LBGManager.Model.Model;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -76,6 +85,35 @@ public class MainActivity extends AppCompatActivity {
         // setup the pager
         setupViewPager(mViewPager);
         setFragment(0);
+
+        initializeModel();
+    }
+
+    private void initializeModel() {
+        // 1. Opens the old model
+        Model model;
+        try {
+            model = Serializer.deserializeModel();
+        } catch (Exception e) {
+            // Gives an empty model if the old_model cannot be recovered
+            model = new Model();
+        }
+        LBG.updateModel(model);
+
+        AppMember appMember;
+        try {
+            // Tries to get the model online, opens the login activity if no token exists or it's a wrong token
+            appMember = Serializer.deserializeAppMember();
+            model = Session.getInstance(appMember.getToken()).gatherModel();
+            LBG.updateModel(model);
+        } catch (IOException | ClassNotFoundException | WrongTokenException e) {
+            // If the old cannot be recovered launches a login activity
+            Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(myIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void setupViewPager(ViewPager pager) {

@@ -1,12 +1,13 @@
 package com.example.LBGManager.Model;
 
-public class AppMember {
+import java.io.Serializable;
 
-    private static Member member;
-    private static String member_id = "";
-    private static String connection_id;
-    private static String password;
-    private static AppMember APPMEMBER;
+public class AppMember implements Serializable {
+
+    private Member member;
+    private String member_id = "";
+    private String token;
+    private static AppMember APPMEMBER = null;
 
 
     /**
@@ -23,35 +24,27 @@ public class AppMember {
         return APPMEMBER;
     }
 
-    public static void setConnection_id(String connection_id) {
-        AppMember.connection_id = connection_id;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public static void setPassword(String password) {
-        AppMember.password = password;
+    public String getToken() {
+        return token;
     }
 
-    public static String getConnection_id() {
-        return connection_id;
-    }
-
-    public static String getPassword() {
-        return password;
-    }
-
-    public static Member getMember() {
+    public Member getMember() {
         return member;
     }
 
-    public static void setMember(Member member) {
-        AppMember.member = member;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
-    public static String getMember_id() {
+    public String getMember_id() {
         return member_id;
     }
 
-    public static void setMember_id(String member_id) {
-        AppMember.member_id = member_id;
+    public void setMember_id(String member_id) {
+        this.member_id = member_id;
     }
 }

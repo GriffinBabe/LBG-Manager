@@ -18,25 +18,48 @@ public class SessionTest {
     @Before
     @Test
     public void getInstance() {
-        session = Session.getInstance(username, password);
-        assertNotEquals(null, session);
-        assertNotEquals(null, session.getToken());
+        try {
+            session = Session.getInstance(username, password);
+            assertNotEquals(null, session);
+            assertNotEquals(null, session.getToken());
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertNotEquals(true, true);
+        }
 
     }
 
     @Test
+    public void tryToken() {
+        Member member = null;
+        try {
+            member = session.checkToken();
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertNotEquals(true, true);
+        }
+        assertNotEquals(null, member);
+        System.out.println(member.getMemeber_id()+" "+member.getName());
+    }
+
+    @Test
     public void getModel() {
-        Model model = session.gatherModel();
-        for (Member member : model.getMembers()) {
-            System.out.println(member.getMemeber_id()+" "+member.getName());
+        try {
+            Model model = session.gatherModel();
+            for (Member member : model.getMembers()) {
+                System.out.println(member.getMemeber_id()+" "+member.getName());
+            }
+            for (Task task : model.getTasks()) {
+                System.out.println(task.getId()+" "+task.getResponsibles());
+            }
+            for (Event event : model.getEvents()) {
+                System.out.println(event.getId()+" "+event.getName()+" "+event.getOrganisers_ids());
+            }
+            assertNotEquals(null, model);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertNotEquals(true, true);
         }
-        for (Task task : model.getTasks()) {
-            System.out.println(task.getId()+" "+task.getResponsibles());
-        }
-        for (Event event : model.getEvents()) {
-            System.out.println(event.getId()+" "+event.getName()+" "+event.getOrganisers_ids());
-        }
-        assertNotEquals(null, model);
     }
 
 }
